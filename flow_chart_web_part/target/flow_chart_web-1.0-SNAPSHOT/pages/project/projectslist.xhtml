@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="./../../templates/common.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="ProjectsListForm">
+
+                <p:panel header="My projects" >
+
+                    <p:dataTable id="projectslist"
+                                 var="project"
+                                 widgetVar="projectsTable"
+                                 value="#{projectController.projects}"
+                                 selectionMode="single" selection="#{projectController.selected}"
+                                 paginator="true"
+                                 rowKey="#{project.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10,20,30,40,50"
+                                 style="text-align: center"
+                                 emptyMessage="No projects found."
+                                 >
+
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right; font-size: 12px;">
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('projectsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowSelect"   update="createButton openButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton openButton editButton deleteButton"/>
+
+                        <p:column headerText="Project Id" filterBy="#{project.id}">
+                            <h:outputText value="#{project.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Project Name" filterBy="#{project.name}" filterMatchMode="contains">
+                            <h:outputText value="#{project.name}"/>
+                        </p:column>
+
+                        <p:column headerText="Created Date" filterBy="#{project.createdDate}">
+                            <h:outputText value="#{project.createdDate}" />
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton class="button" id="createButton" icon="ui-icon-plus"   value="Create" actionListener="#{projectController.prepareCreate}" update=":ProjectCreateForm" oncomplete="PF('ProjectCreateDialog').show()"/>
+                            <p:commandButton class="button" id="openButton"   icon="ui-icon-search" value="Open" actionListener="#{classController.setProjectId}" action="classeslist" disabled="#{empty projectController.selected}">
+                                <f:param name="projectId" value="#{projectController.selected.id}"/>
+                            </p:commandButton>
+                            <p:commandButton class="button" id="editButton"   icon="ui-icon-pencil" value="Edit" update=":ProjectEditForm" oncomplete="PF('ProjectEditDialog').show()" disabled="#{empty projectController.selected}"/>
+                            <p:commandButton class="button" id="deleteButton" icon="ui-icon-trash"  value="Delete" actionListener="#{projectController.destroy}" update=":growl,projectslist" disabled="#{empty projectController.selected}"/>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+
+            </h:form>
+
+            <ui:include src="createproject.xhtml"/>
+            <ui:include src="editproject.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

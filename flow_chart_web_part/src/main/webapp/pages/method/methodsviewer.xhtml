@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../templates/common.xhtml">
+
+            <ui:define name="content">
+
+                <h:form>
+
+                    <p:dataGrid var="image" value="#{methodController.methods}"
+                                columns="3" paginator="true"
+                                id="methodImages"
+                                rowsPerPageTemplate="5,10,15,20,25"
+                                rows="5">
+                        <p:panel header="#{image.name}" style="text-align:center;">
+                            <p:commandLink action="#{methodController.setImageId(image.id)}" update="dialog" oncomplete="PF('dlg').show()">
+                                <p:graphicImage value="#{methodController.image}" height="250" width="250">
+                                    <f:param name="id" value="#{image.id}"/>
+                                </p:graphicImage>
+                            </p:commandLink>
+
+                            <p:dialog id="dialog" header="#{methodController.image.name}" widgetVar="dlg" modal="true" resizable="false" closeOnEscape="true">
+                                <p:scrollPanel id="scroll" style="overflow: scroll; max-height: 800px; max-width: 1000px;" mode="native">
+                                    <p:graphicImage value="#{methodController.image}" >
+                                        <f:param name="id" value="#{methodController.imageId}" />
+                                    </p:graphicImage>
+                                </p:scrollPanel>
+                            </p:dialog>
+                        </p:panel>
+                    </p:dataGrid>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

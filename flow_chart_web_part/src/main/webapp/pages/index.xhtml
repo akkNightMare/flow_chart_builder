@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../templates/common.xhtml">
+
+<!--            <ui:define name="top">
+                <p:link outcome="project/projectslist.xhtml?faces-redirect=true" value="Flow-Chart Builder" style="padding-left: 220px; padding-top: 0px; font-size: 18px;"/>
+            </ui:define>-->
+
+            <ui:define name="content">
+
+                <h:form id="welcomeForm" >
+                    <p:fieldset styleClass="fieldset" legend="Welcome to Online Flow-Chart Builder" style="min-height: 100px; text-align: center;">
+                        <br></br>
+                        <h:link outcome="project/projectslist" value="Go to Application" />
+                        <br></br><br></br>
+                        <h:link outcome="/pages/signup" value="Sing up" />
+                    </p:fieldset>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

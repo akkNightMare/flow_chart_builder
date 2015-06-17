@@ -1,0 +1,18 @@
+.ui-widget {
+    font-size: 12px;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    text-align: center;
+    font-size: 14px;
+    /*text-transform: uppercase;*/
+}
+.ui-button {
+    margin-top: 10px !important;
+}
